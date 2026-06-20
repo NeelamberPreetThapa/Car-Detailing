@@ -1,0 +1,580 @@
+/* ==========================================================================
+   1. CORE CONFIGURATIONS & VARIABLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-pitch-black: #050505;
+  --bg-dark-card: rgba(20, 20, 20, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --accent-yellow: #f4d03f; /* Original Bumbra Logo Yellow */
+  --text-pure: #ffffff;
+  --text-muted: #8e8e93; /* Apple-like subtle grey */
+  --font-display: 'Orbitron', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--bg-pitch-black);
+  color: var(--text-pure);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  letter-spacing: -0.2px;
+}
+
+/* ==========================================================================
+   2. APPLE-STYLE NAVBAR
+   ========================================================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  z-index: 1000;
+  background: rgba(5, 5, 5, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--accent-yellow);
+  letter-spacing: 1px;
+}
+
+.nav-tagline {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--text-pure);
+}
+
+/* ==========================================================================
+   3. HERO SECTION (100VH TRACK WITH RESPONSIVE VIDEO)
+   ========================================================================== */
+.hero-track {
+  height: 100vh; /* Controlled 1-fold setup */
+  position: relative;
+  background-color: var(--bg-pitch-black);
+}
+
+.sticky-video-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-pitch-black);
+}
+
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* Desktop keeps full screen stretch */
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.2) 0%, rgba(5, 5, 5, 0.95) 100%);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: none; /* Safe scroll passage link */
+  padding: 0 20px;
+}
+
+.sub-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 10px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.main-title {
+  font-family: var(--font-display);
+  font-size: 6.5rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--accent-yellow);
+  text-shadow: 0 0 40px rgba(244, 208, 63, 0.25);
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  max-width: 550px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 15px;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   4. APPLE-STYLE GLASS STORE FRONT WORKSPACE
+   ========================================================================== */
+.store-wrapper {
+  position: relative;
+  z-index: 100;
+  background-color: var(--bg-pitch-black);
+  padding-bottom: 100px;
+  margin-top: -5vh;
+}
+
+/* Dynamic Floating Strings Accent Layer */
+.store-wrapper::before, .store-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 110%;
+  background: linear-gradient(to bottom, transparent, rgba(244, 208, 63, 0.12), transparent);
+  top: -5%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.store-wrapper::before { left: 8%; transform: rotate(3deg); }
+.store-wrapper::after { right: 10%; transform: rotate(-4deg); }
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
+
+.store-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-yellow);
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.store-header h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.store-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+/* Layout Core Architecture Grid Split */
+.store-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Glassmorphism Sidebar */
+.glass-sidebar {
+  width: 280px;
+  background: var(--bg-dark-card);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 18px;
+  padding: 30px;
+  position: sticky;
+  top: 110px;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.filter-segment {
+  margin-bottom: 35px;
+}
+
+.filter-segment:last-child {
+  margin-bottom: 0;
+}
+
+.filter-segment h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+.filter-segment label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  transition: color 0.2s;
+}
+
+.filter-segment label:hover {
+  color: var(--accent-yellow);
+}
+
+.filter-segment input[type="checkbox"] {
+  accent-color: var(--accent-yellow);
+  width: 16px;
+  height: 16px;
+}
+
+/* Grid Framework Showcase */
+.products-column {
+  flex-grow: 1;
+}
+
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+/* Card Mechanics */
+.glass-card {
+  background: var(--bg-dark-card);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
+}
+
+.glass-card.featured {
+  grid-column: span 2;
+  flex-direction: row;
+  height: 380px;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(244, 208, 63, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.image-box {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+  width: 100%;
+  height: 260px;
+}
+
+.glass-card.featured .image-box {
+  width: 55%;
+  height: 100%;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover .image-box img {
+  transform: scale(1.04);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(5, 5, 5, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-pure);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 30px;
+  z-index: 5;
+}
+
+.card-info {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.glass-card.featured .card-info {
+  width: 45%;
+}
+
+.meta-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-yellow);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.card-info h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  color: var(--text-pure);
+}
+
+.glass-card.featured .card-info h3 {
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.price-current {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-pure);
+}
+
+.price-old {
+  font-size: 0.95rem;
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   5. COMPLETE FLUID RESPONSIVENESS MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .store-layout { flex-direction: column; gap: 30px; }
+  .glass-sidebar { width: 100%; position: relative; top: 0; }
+  .glass-card.featured { flex-direction: column; height: auto; grid-column: span 1; }
+  .glass-card.featured .image-box, .glass-card.featured .card-info { width: 100%; }
+  .glass-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ==========================================================================
+   COMPLETE MOBILE RESPONSIVENESS (MAX-WIDTH: 768PX)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* =========================================
+     1. NAVBAR FIXES
+     ========================================= */
+  .navbar {
+    padding: 15px 4%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .logo { 
+    font-size: 1.3rem; 
+  }
+  
+  .nav-tagline {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-align: right;
+    white-space: nowrap; 
+  }
+
+  /* =========================================
+     2. HERO SECTION & VIDEO SCALING
+     ========================================= */
+  .hero-track-new, 
+  .sticky-video-container, 
+  .hero-content, 
+  .video-overlay {
+    height: 60vh; /* Prevents side cropping & removes blank gaps */
+  }
+
+  #bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center;
+  }
+
+  .main-title { 
+    font-size: 3.2rem; 
+    letter-spacing: 1px; 
+  }
+  
+  .sub-title { 
+    font-size: 0.8rem; 
+    letter-spacing: 5px; 
+  }
+  
+  .hero-desc { 
+    font-size: 0.95rem; 
+    padding: 0 15px; 
+  }
+
+  /* =========================================
+     3. LAYOUT & SPACING FIXES 
+     ========================================= */
+  .store-wrapper {
+    margin-top: 0; /* Clears desktop negative margin */
+    padding-top: 15px;
+  }
+  
+  .store-header { 
+    margin-bottom: 15px; /* Brings text closer to filters */
+    text-align: left; 
+  }
+  
+  .store-header h2 { 
+    font-size: 1.8rem; 
+  }
+
+  .store-layout { 
+    flex-direction: column; 
+    gap: 15px; /* Tightly packs filters and grid */
+  }
+
+  /* =========================================
+     4. SIDEBAR FILTERS (Horizontal Scroll)
+     ========================================= */
+  .glass-sidebar {
+    position: relative; /* Kills the sticky floating effect causing overlap */
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    width: 100vw;
+    margin-left: -4%; 
+    padding: 0 4% 10px 4%;
+    z-index: 10;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    gap: 12px;
+  }
+
+  /* Hide scrollbar for a clean premium look */
+  .glass-sidebar::-webkit-scrollbar { display: none; }
+  .glass-sidebar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .filter-segment {
+    flex: 0 0 200px; /* Fixed width for swipeable cards */
+    max-height: 140px; /* Forces cards to be short so they don't cover screen */
+    overflow-y: auto; /* Internal scroll if options are too many */
+    background: var(--bg-dark-card);
+    border: 1px solid var(--glass-border);
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 0;
+  }
+
+  .filter-segment h4 {
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+  }
+
+  .filter-segment label {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+
+  /* =========================================
+     5. TWO COLUMNS LISTING GRID
+     ========================================= */
+  .glass-grid {
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 12px; 
+  }
+
+  .glass-card.featured {
+    grid-column: span 1 !important;
+    flex-direction: column !important;
+    height: auto !important;
+  }
+
+  .glass-card.featured .image-box, 
+  .glass-card.featured .card-info {
+    width: 100% !important;
+  }
+
+  .image-box { 
+    height: 140px; 
+  }
+  
+  .card-info { 
+    padding: 12px; 
+  }
+  
+  .meta-tag { 
+    font-size: 0.55rem; 
+    margin-bottom: 4px; 
+  }
+  
+  .card-info h3 {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    height: 34px; 
+    overflow: hidden;
+  }
+
+  .price-row { 
+    flex-direction: column; 
+    gap: 2px; 
+  }
+  
+  .price-current { 
+    font-size: 0.95rem; 
+  }
+  
+  .price-old { 
+    font-size: 0.8rem; 
+  }
+  
+  .discount-badge { 
+    top: 8px; 
+    left: 8px; 
+    padding: 3px 8px; 
+    font-size: 0.6rem; 
+  }
+}
